@@ -1,0 +1,216 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <sstream>
+
+using namespace std;
+
+struct Kelione {
+    string salis;
+    string miestas;
+    string transportas;
+    double kaina;
+    int dienos;
+};
+
+vector<Kelione> sarasas;
+
+// nuskaitymas is failo
+void nuskaityti(){
+    ifstream f("keliones.txt");
+    string eil;
+
+    while(getline(f, eil)){
+        stringstream ss(eil);
+        Kelione k;
+        string temp;
+
+        getline(ss, k.salis, ';');
+        getline(ss, k.miestas, ';');
+        getline(ss, k.transportas, ';');
+
+        getline(ss, temp, ';');
+        k.kaina = stod(temp);
+
+        getline(ss, temp, ';');
+        k.dienos = stoi(temp);
+
+        sarasas.push_back(k);
+    }
+
+    f.close();
+}
+
+// issaugojimas i faila
+void issaugoti(){
+    ofstream f("keliones.txt");
+
+    for(int i=0; i<sarasas.size(); i++){
+        f << sarasas[i].salis << ";"
+          << sarasas[i].miestas << ";"
+          << sarasas[i].transportas << ";"
+          << sarasas[i].kaina << ";"
+          << sarasas[i].dienos << endl;
+    }
+
+    f.close();
+}
+
+// rodymas
+void rodyti(){
+    cout << "\n--- KELIONES ---\n";
+
+    for(int i=0; i<sarasas.size(); i++){
+        cout << i << " : "
+             << sarasas[i].salis << " - "
+             << sarasas[i].miestas << " - "
+             << sarasas[i].transportas << " - "
+             << sarasas[i].kaina << " eur - "
+             << sarasas[i].dienos << " d.\n";
+    }
+}
+
+// pridejimas
+void prideti(){
+    Kelione k;
+
+    cout << "Ivesk sali: ";
+    cin >> k.salis;
+
+    cout << "Miestas: ";
+    cin >> k.miestas;
+
+    cout << "Transportas: ";
+    cin >> k.transportas;
+
+    cout << "Kaina: ";
+    cin >> k.kaina;
+
+    cout << "Dienos: ";
+    cin >> k.dienos;
+
+    sarasas.push_back(k);
+
+    cout << "Prideta.\n";
+}
+
+// trynimas
+void trinti(){
+    int nr;
+    rodyti();
+
+    cout << "Kuri istrinti (nr): ";
+    cin >> nr;
+
+    if(nr >= 0 && nr < sarasas.size()){
+        sarasas.erase(sarasas.begin() + nr);
+        cout << "Istrinta.\n";
+    } else {
+        cout << "Blogas nr.\n";
+    }
+}
+
+// redagavimas
+void redaguoti(){
+    int nr;
+    rodyti();
+
+    cout << "Kuri redaguoti: ";
+    cin >> nr;
+
+    if(nr >= 0 && nr < sarasas.size()){
+        cout << "Nauja salis: ";
+        cin >> sarasas[nr].salis;
+
+        cout << "Naujas miestas: ";
+        cin >> sarasas[nr].miestas;
+
+        cout << "Naujas transportas: ";
+        cin >> sarasas[nr].transportas;
+
+        cout << "Nauja kaina: ";
+        cin >> sarasas[nr].kaina;
+
+        cout << "Naujos dienos: ";
+        cin >> sarasas[nr].dienos;
+
+        cout << "Atnaujinta.\n";
+    }
+}
+
+// paieska
+void ieskoti(){
+    string txt;
+
+    cout << "Ivesk sali arba miesta: ";
+    cin >> txt;
+
+    cout << "\nRezultatai:\n";
+
+    for(int i=0; i<sarasas.size(); i++){
+        if(sarasas[i].salis == txt || sarasas[i].miestas == txt){
+            cout << sarasas[i].salis << " "
+                 << sarasas[i].miestas << " "
+                 << sarasas[i].kaina << " eur\n";
+        }
+    }
+}
+
+// pigiausia
+void pigiausia(){
+    if(sarasas.size() == 0){
+        cout << "Nera duomenu\n";
+        return;
+    }
+
+    Kelione min = sarasas[0];
+
+    for(int i=1; i<sarasas.size(); i++){
+        if(sarasas[i].kaina < min.kaina){
+            min = sarasas[i];
+        }
+    }
+
+    cout << "Pigiausia kelione: "
+         << min.salis << " "
+         << min.miestas << " - "
+         << min.kaina << " eur\n";
+}
+
+// meniu
+void meniu(){
+    cout << "\n=========================\n";
+    cout << " KELIONIU VALDYMAS\n";
+    cout << "=========================\n";
+    cout << "1 - Rodyti keliones\n";
+    cout << "2 - Prideti kelione\n";
+    cout << "3 - Istrinti kelione\n";
+    cout << "4 - Redaguoti kelione\n";
+    cout << "5 - Paieska\n";
+    cout << "6 - Pigiausia kelione\n";
+    cout << "0 - Baigti\n";
+    cout << "Pasirinkimas: ";
+}
+
+int main(){
+    nuskaityti();
+
+    int p;
+
+    do{
+        meniu();
+        cin >> p;
+
+        if(p == 1) rodyti();
+        else if(p == 2) prideti();
+        else if(p == 3) trinti();
+        else if(p == 4) redaguoti();
+        else if(p == 5) ieskoti();
+        else if(p == 6) pigiausia();
+
+    } while(p != 0);
+
+    issaugoti();
+
+    return 0;
+}
