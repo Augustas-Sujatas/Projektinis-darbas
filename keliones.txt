@@ -1,0 +1,16 @@
+Lietuva;Vilnius;Autobusas;10;1
+Lietuva;Kaunas;Traukinys;12;1
+Latvija;Ryga;Autobusas;25;2
+Estija;Talinas;Autobusas;30;2
+Lenkija;Varsuva;Traukinys;40;3
+Vokietija;Berlynas;Lektuvas;120;4
+Prancuzija;Paryzius;Lektuvas;150;5
+Italija;Roma;Lektuvas;140;5
+Ispanija;Barselona;Lektuvas;160;6
+Norvegija;Oslas;Lektuvas;200;5
+Svedija;Stokholmas;Lektuvas;180;4
+Danija;Kopenhaga;Lektuvas;170;4
+Olandija;Amsterdamas;Lektuvas;160;3
+Belgija;Briuselis;Lektuvas;150;3
+Cekija;Praha;Autobusas;50;3
+Austrija;Viena;Traukinys;60;3
