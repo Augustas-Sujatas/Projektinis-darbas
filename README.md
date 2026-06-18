@@ -13,9 +13,7 @@ transporto tipą
 kainą
 trukmę dienomis
 
-# Funkcionalumas
-
-#  operacijos:
+#  Operacijos:
 pridėti naują kelionę
 peržiūrėti visas keliones
 redaguoti pasirinktą kelionę
